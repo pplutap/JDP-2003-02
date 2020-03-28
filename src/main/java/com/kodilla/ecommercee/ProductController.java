@@ -18,7 +18,7 @@ public class ProductController {
 
     @GetMapping(value = "getProductById")
     public ProductDto getTProductById(@RequestParam Long productId) throws ProductNotFoundException {
-        return null;
+        return new ProductDto();
     }
 
     @PostMapping(value = "createProduct", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -28,7 +28,7 @@ public class ProductController {
 
     @PutMapping(value = "updateProduct")
     public ProductDto updateProduct(@RequestBody ProductDto productDto) {
-        return null;
+        return new ProductDto();
     }
 
     @DeleteMapping(value = "deleteProduct")
