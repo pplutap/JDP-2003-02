@@ -24,7 +24,7 @@ public class GroupController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getGroup")
-    public GroupDto getGroup(@RequestParam Integer Id) throws GroupDefinitionException {
+    public GroupDto getGroup(@RequestParam Long Id) throws GroupDefinitionException {
         return new GroupDto(1L,"Shoes");
     }
 
