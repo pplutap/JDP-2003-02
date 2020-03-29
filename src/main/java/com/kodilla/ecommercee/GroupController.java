@@ -20,7 +20,7 @@ public class GroupController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createGroup", consumes = APPLICATION_JSON_VALUE)
-    public void createGroup(@RequestBody String groupDto) {
+    public void createGroup(@RequestBody GroupDto groupDto) {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getGroup")
@@ -29,6 +29,6 @@ public class GroupController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateGroup")
-    public void updateGroup(@RequestBody String updatedGroupDto) {
+    public void updateGroup(@RequestBody GroupDto groupDto) {
     }
 }
