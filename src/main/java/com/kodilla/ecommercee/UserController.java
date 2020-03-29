@@ -13,11 +13,11 @@ public class UserController {
     public void createUser(@RequestBody UserDto userDto) {
     }
 
-    @RequestMapping(method = RequestMethod.PATCH, value = "blockUser")
+    @RequestMapping(method = RequestMethod.PUT, value = "blockUser")
     public void blockUser(@RequestParam Long Id) {
     }
 
-    @RequestMapping(method = RequestMethod.PATCH, value = "generateKey")
+    @RequestMapping(method = RequestMethod.POST, value = "generateKey")
     public void generateKey(@RequestParam Long Id) {
     }
 
