@@ -1,5 +1,8 @@
-package com.kodilla.ecommercee;
+package com.kodilla.ecommercee.controller;
 
+import com.kodilla.ecommercee.domain.OrderDto;
+import com.kodilla.ecommercee.mapper.OrderMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -11,12 +14,12 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping("/kodilla_project")
 public class OrderController {
 
-    //@Autowierd
+    @Autowired
     private OrderMapper orderMapper;
 
     @RequestMapping(method = RequestMethod.GET, value = "getOrders")
     public List<OrderDto> getOrders() {
-        return orderMapper.maptoOrderDtoList(new ArrayList<>());
+        return orderMapper.mapToOrderDtoList(new ArrayList<>());
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getOrder")
@@ -30,7 +33,7 @@ public class OrderController {
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateOrder")
     public OrderDto updateOrder(@RequestBody OrderDto orderDto){
-        return orderDto;
+        return new OrderDto(2L,1L);
     }
 
     @RequestMapping(method = RequestMethod.POST,value="createOrder",consumes = APPLICATION_JSON_VALUE)
