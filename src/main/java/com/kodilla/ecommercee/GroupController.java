@@ -1,8 +1,11 @@
 package com.kodilla.ecommercee;
 
+import com.kodilla.ecommercee.domain.GroupDto;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.GroupDefinitionException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -12,22 +15,20 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class GroupController {
 
     @RequestMapping(method = RequestMethod.GET, value = "getGroupsList")
-    public List<String> getGroupsList() {
-        return new ArrayList<>();
+    public List<GroupDto> getGroupsList() {
+        return Arrays.asList(new GroupDto(1L, "Shoes"), new GroupDto(2L, "Pants"));
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createGroup", consumes = APPLICATION_JSON_VALUE)
-    public String createGroup(@RequestBody String groupDto) {
-        return "groupDto";
+    public void createGroup(@RequestBody String groupDto) {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getGroup")
-    public String getGroup(@RequestParam Integer Id) {
-        return "groupDto";
+    public GroupDto getGroup(@RequestParam Integer Id) throws GroupDefinitionException {
+        return new GroupDto(1L,"Shoes");
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateGroup")
-    public String updateGroup(@RequestBody String updatedGroupDto) {
-        return "updatedGroupDto";
+    public void updateGroup(@RequestBody String updatedGroupDto) {
     }
 }
