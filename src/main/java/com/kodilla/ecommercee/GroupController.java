@@ -4,7 +4,6 @@ import com.kodilla.ecommercee.domain.GroupDto;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.GroupDefinitionException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
