@@ -24,9 +24,9 @@ public class OrderMapper {
         );
     }
 
-    public List<OrderDto> mapToOrderDtoList(final List<Order> orderList) {
-        return orderList.stream()
-                .map(t -> new OrderDto(t.getOrderId(), t.getUserId()))
+    public List<OrderDto> mapToOrderDtoList(final List<Order> orderLists) {
+        return orderLists.stream()
+                .map(orders -> new OrderDto(orders.getOrderId(), orders.getUserId()))
                 .collect(Collectors.toList());
     }
 }
