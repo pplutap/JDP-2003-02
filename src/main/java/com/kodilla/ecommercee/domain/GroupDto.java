@@ -6,6 +6,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class GroupDto {
-    private Long Id;
+    private Long id;
     private String name;
 }
