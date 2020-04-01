@@ -19,7 +19,7 @@ public class UserController {
         return new UserDto(id, "Matusz", "blocked", 31231L);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/generateKey/{id}")
+    @RequestMapping(method = RequestMethod.POST, value = "/generateKey/{id}")
     public Long generateKey(@PathVariable Long id) {
         return 123L;
     }
