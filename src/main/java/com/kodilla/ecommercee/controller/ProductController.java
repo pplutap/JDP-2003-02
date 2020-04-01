@@ -1,4 +1,4 @@
-package com.kodilla.ecommercee;
+package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.domain.ProductDto;
 import com.kodilla.ecommercee.exceptions.ProductNotFoundException;
@@ -9,17 +9,17 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequestMapping("/v1/ecommerce")
+@RequestMapping("/v1/product")
 @RestController
 public class ProductController {
 
-    @GetMapping(value = "getProducts")
-    public List<ProductDto> getProducts() {
+    @GetMapping
+    public List<ProductDto> getAll() {
         return getMockProductList();
     }
 
-    @GetMapping(value = "getProductById")
-    public ProductDto getTProductById(@RequestParam Long productId) throws ProductNotFoundException {
+    @GetMapping("/{productId}")
+    public ProductDto getTById(@PathVariable Long productId) throws ProductNotFoundException {
             return new ProductDto(
                     1L,
                     "Kurtka zimowa",
@@ -31,13 +31,13 @@ public class ProductController {
                     1L);
     }
 
-    @PostMapping(value = "createProduct", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void createProduct(@RequestBody ProductDto productDto) {
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void create(@RequestBody ProductDto productDto) {
 
     }
 
-    @PutMapping(value = "updateProduct")
-    public ProductDto updateProduct(@RequestBody ProductDto productDto) {
+    @PutMapping
+    public ProductDto update(@RequestBody ProductDto productDto) {
         return new ProductDto(
                 1L,
                 "Kurtka zimowa",
@@ -49,8 +49,8 @@ public class ProductController {
                 1L);
     }
 
-    @DeleteMapping(value = "deleteProduct")
-    public void deleteProduct(@RequestParam Long productId) {
+    @DeleteMapping("/{productId}")
+    public void deleteProduct(@PathVariable Long productId) {
 
     }
 
