@@ -5,6 +5,7 @@ public class OrderDto {
     private Long orderId;
     private Long userId;
 
+
     public OrderDto(Long orderId, Long userId) {
         this.orderId = orderId;
         this.userId = userId;

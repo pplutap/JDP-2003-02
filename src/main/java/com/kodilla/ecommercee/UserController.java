@@ -9,16 +9,18 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping("/v1/user")
 public class UserController {
 
-    @RequestMapping(method = RequestMethod.POST, value = "createUser", consumes = APPLICATION_JSON_VALUE)
-    public void createUser(@RequestBody UserDto userDto) {
+    @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE)
+    public UserDto create(@RequestBody UserDto userDto) {
+        return new UserDto(1L, "Mateusz", "unblocked", 3213L);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "blockUser")
-    public void blockUser(@RequestParam Long Id) {
+    @RequestMapping(method = RequestMethod.PUT, value = "/block/{id}")
+    public UserDto block(@PathVariable Long id) {
+        return new UserDto(id, "Matusz", "blocked", 31231L);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "generateKey")
-    public void generateKey(@RequestParam Long Id) {
+    @RequestMapping(method = RequestMethod.POST, value = "/generateKey/{id}")
+    public Long generateKey(@PathVariable Long id) {
+        return 123L;
     }
-
 }
