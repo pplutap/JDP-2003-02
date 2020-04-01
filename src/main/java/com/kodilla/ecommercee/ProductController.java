@@ -28,7 +28,7 @@ public class ProductController {
                             "Vivamus erat turpis, molestie a nisl non, scelerisque luctus enim. " +
                             "Nunc mi mi, laoreet ac mollis nec, pharetra sit amet tortor. Vivamus a bibendum purus.",
                     new BigDecimal(100),
-                    "1");
+                    1L);
     }
 
     @PostMapping(value = "createProduct", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -46,7 +46,7 @@ public class ProductController {
                         "Vivamus erat turpis, molestie a nisl non, scelerisque luctus enim. " +
                         "Nunc mi mi, laoreet ac mollis nec, pharetra sit amet tortor. Vivamus a bibendum purus.",
                 new BigDecimal(100),
-                "1");
+                1L);
     }
 
     @DeleteMapping(value = "deleteProduct")
@@ -65,7 +65,7 @@ public class ProductController {
                         "Vivamus erat turpis, molestie a nisl non, scelerisque luctus enim. " +
                         "Nunc mi mi, laoreet ac mollis nec, pharetra sit amet tortor. Vivamus a bibendum purus.",
                 new BigDecimal(100),
-                "1");
+                1L);
         ProductDto productDto2 = new ProductDto(
                 2L,
                 "płaszcz",
@@ -74,7 +74,7 @@ public class ProductController {
                         "Vivamus erat turpis, molestie a nisl non, scelerisque luctus enim. " +
                         "Nunc mi mi, laoreet ac mollis nec, pharetra sit amet tortor. Vivamus a bibendum purus.",
                 new BigDecimal(150),
-                "1");
+                1L);
 
         ProductDto productDto3 = new ProductDto(
                 3L,
@@ -84,7 +84,7 @@ public class ProductController {
                         "Vivamus erat turpis, molestie a nisl non, scelerisque luctus enim. " +
                         "Nunc mi mi, laoreet ac mollis nec, pharetra sit amet tortor. Vivamus a bibendum purus.",
                 new BigDecimal(100),
-                "4");
+                4L);
 
         productsList.add(productDto1);
         productsList.add(productDto2);
