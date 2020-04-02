@@ -10,8 +10,7 @@ import java.math.BigDecimal;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "CARTS")
+@Entity(name = "CARTS")
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,8 +25,4 @@ public class Cart {
 
     @Column(name = "PRICE")
     private BigDecimal price;
-
-    /*@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "GROUP_ID")
-    private Group group;*/
 }
