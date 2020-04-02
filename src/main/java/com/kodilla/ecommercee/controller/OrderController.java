@@ -9,7 +9,7 @@ import java.util.List;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping("/kodilla_project")
+@RequestMapping("/v1/orders")
 public class OrderController {
 
 

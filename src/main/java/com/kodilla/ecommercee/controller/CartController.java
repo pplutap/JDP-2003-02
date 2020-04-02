@@ -12,11 +12,11 @@ import java.util.List;
 @RequestMapping("/v1/cart")
 public class CartController {
 
-    @RequestMapping(method = RequestMethod.POST)
+    @GetMapping
     public void create() {
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public List<ProductDto> get() {
         List<ProductDto> products = new ArrayList<>();
         products.add(new ProductDto(1L, "kurtka zimowa", "Pellentesque tempus interdum quam ut rhoncus.", BigDecimal.valueOf(100), 1L));
@@ -25,7 +25,7 @@ public class CartController {
         return products;
     }
 
-    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<ProductDto> addProducts(@RequestBody List<ProductDto> products) {
         products.add(new ProductDto(1L, "kurtka zimowa", "Pellentesque tempus interdum quam ut rhoncus.", BigDecimal.valueOf(100), 1L));
         products.add(new ProductDto(2L, "płaszcz", " Vivamus a bibendum purus.", BigDecimal.valueOf(150), 1L));
@@ -34,7 +34,7 @@ public class CartController {
         return products;
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/{productId}")
+    @DeleteMapping(value = "/{productId}")
     public List<ProductDto> deleteProduct(@PathVariable Long productId) {
         List<ProductDto> products = new ArrayList<>();
         products.add(new ProductDto(1L, "kurtka zimowa", "Pellentesque tempus interdum quam ut rhoncus.", BigDecimal.valueOf(100), 1L));
@@ -42,7 +42,7 @@ public class CartController {
         return products;
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "createOrder")
+    @PostMapping(value = "createOrder")
     public List<ProductDto> createOrder() {
         List<ProductDto> products = new ArrayList<>();
         products.add(new ProductDto(1L, "kurtka zimowa", "Pellentesque tempus interdum quam ut rhoncus.", BigDecimal.valueOf(100), 1L));
