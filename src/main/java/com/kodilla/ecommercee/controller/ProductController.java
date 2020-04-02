@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequestMapping("/v1/product")
+@RequestMapping("/v1/products")
 @RestController
 public class ProductController {
 
@@ -50,7 +50,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{productId}")
-    public void deleteProduct(@PathVariable Long productId) {
+    public void deleteById(@PathVariable Long productId) {
 
     }
 
