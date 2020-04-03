@@ -13,12 +13,12 @@ public class UserController {
         return new UserDto(1L, "Mateusz", "unblocked", 3213L);
     }
 
-    @PutMapping("{id}/block")
+    @PutMapping("/{id}/block")
     public UserDto blockUser(@PathVariable() Long id) {
         return new UserDto(id, "Matusz", "blocked", 31231L);
     }
 
-    @PutMapping("{id}/generateKey")
+    @PutMapping("/{id}/generateKey")
     public Long generateKey(@PathVariable() Long id) {
         return 198282L;
     }

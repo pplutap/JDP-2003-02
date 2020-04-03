@@ -42,7 +42,7 @@ public class CartController {
         return products;
     }
 
-    @PostMapping(value = "createOrder")
+    @PostMapping(value = "/createOrder")
     public List<ProductDto> createOrder() {
         List<ProductDto> products = new ArrayList<>();
         products.add(new ProductDto(1L, "kurtka zimowa", "Pellentesque tempus interdum quam ut rhoncus.", BigDecimal.valueOf(100), 1L));
