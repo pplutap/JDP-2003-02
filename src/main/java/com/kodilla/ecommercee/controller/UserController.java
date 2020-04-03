@@ -18,7 +18,7 @@ public class UserController {
         return new UserDto(id, "Matusz", "blocked", 31231L);
     }
 
-    @PutMapping("/{id}/generateKey")
+    @PostMapping("/{id}/generateKey")
     public Long generateKey(@PathVariable() Long id) {
         return 198282L;
     }
