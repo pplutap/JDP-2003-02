@@ -23,8 +23,8 @@ public class GroupController {
     }
 
     @GetMapping("/{id}")
-    public GroupDto getById(@PathVariable Long id) throws GroupDefinitionException {
-        return new GroupDto(1L,"Shoes");
+    public GroupDto get(@PathVariable Long id) throws GroupDefinitionException {
+        return new GroupDto(1L, "Shoes");
     }
 
     @PutMapping

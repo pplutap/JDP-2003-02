@@ -34,8 +34,8 @@ public class CartController {
         return products;
     }
 
-    @DeleteMapping(value = "/{productId}")
-    public List<ProductDto> deleteProduct(@PathVariable Long productId) {
+    @DeleteMapping(value = "/{id}")
+    public List<ProductDto> deleteProduct(@PathVariable Long id) {
         List<ProductDto> products = new ArrayList<>();
         products.add(new ProductDto(1L, "kurtka zimowa", "Pellentesque tempus interdum quam ut rhoncus.", BigDecimal.valueOf(100), 1L));
         products.add(new ProductDto(2L, "płaszcz", " Vivamus a bibendum purus.", BigDecimal.valueOf(150), 1L));
