@@ -19,8 +19,8 @@ public class Cart {
     @Column(name = "ID",unique = true)
     private Long id;
 
-    @Column(name = "NAME")
-    private String name;
+    @Column(name = "PRODUCT_NAME")
+    private String productName;
 
     @Column(name = "DESCRIPTION")
     private String description;
