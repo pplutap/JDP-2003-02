@@ -9,32 +9,28 @@ import java.util.List;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping("/kodilla_project")
+@RequestMapping("/v1/orders")
 public class OrderController {
-
-
-
-    @RequestMapping(method = RequestMethod.GET, value = "getOrders")
-    public List<OrderDto> getOrders() {
+    @GetMapping
+    public List<OrderDto> get() {
         return Arrays.asList(new OrderDto(1L, 0L), new OrderDto(2L, 1L));
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "getOrder")
-    public OrderDto getOrder(@RequestParam Long orderId) {
+    @GetMapping("/{id}")
+    public OrderDto get(@PathVariable Long orderId) {
         return new OrderDto(1L, 0L);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "deleteOrder")
-    public void deleteOrder(@RequestParam Long orderId) {
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long orderId) {
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "updateOrder")
-    public OrderDto updateOrder(@RequestBody OrderDto orderDto){
-        return new OrderDto(2L,1L);
+    @PutMapping
+    public OrderDto update(@RequestBody OrderDto orderDto) {
+        return new OrderDto(2L, 1L);
     }
 
-    @RequestMapping(method = RequestMethod.POST,value="createOrder",consumes = APPLICATION_JSON_VALUE)
-    public void createOrder(@RequestBody OrderDto orderDto){
-
+    @PostMapping(consumes = APPLICATION_JSON_VALUE)
+    public void create(@RequestBody OrderDto orderDto) {
     }
 }

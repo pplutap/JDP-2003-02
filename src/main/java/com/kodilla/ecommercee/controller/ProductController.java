@@ -1,4 +1,4 @@
-package com.kodilla.ecommercee;
+package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.domain.ProductDto;
 import com.kodilla.ecommercee.exceptions.ProductNotFoundException;
@@ -9,35 +9,17 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequestMapping("/v1/ecommerce")
 @RestController
+@RequestMapping("/v1/products")
 public class ProductController {
 
-    @GetMapping(value = "getProducts")
-    public List<ProductDto> getProducts() {
+    @GetMapping
+    public List<ProductDto> get() {
         return getMockProductList();
     }
 
-    @GetMapping(value = "getProductById")
-    public ProductDto getTProductById(@RequestParam Long productId) throws ProductNotFoundException {
-            return new ProductDto(
-                    1L,
-                    "Kurtka zimowa",
-                    "Pellentesque tempus interdum quam ut rhoncus. Donec ullamcorper turpis dolor. " +
-                            "Donec euismod pretium eros et eleifend. Aliquam vulputate faucibus lorem non auctor. " +
-                            "Vivamus erat turpis, molestie a nisl non, scelerisque luctus enim. " +
-                            "Nunc mi mi, laoreet ac mollis nec, pharetra sit amet tortor. Vivamus a bibendum purus.",
-                    new BigDecimal(100),
-                    1L);
-    }
-
-    @PostMapping(value = "createProduct", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void createProduct(@RequestBody ProductDto productDto) {
-
-    }
-
-    @PutMapping(value = "updateProduct")
-    public ProductDto updateProduct(@RequestBody ProductDto productDto) {
+    @GetMapping("/{id}")
+    public ProductDto get(@PathVariable Long id) throws ProductNotFoundException {
         return new ProductDto(
                 1L,
                 "Kurtka zimowa",
@@ -49,8 +31,26 @@ public class ProductController {
                 1L);
     }
 
-    @DeleteMapping(value = "deleteProduct")
-    public void deleteProduct(@RequestParam Long productId) {
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void create(@RequestBody ProductDto productDto) {
+
+    }
+
+    @PutMapping
+    public ProductDto update(@RequestBody ProductDto productDto) {
+        return new ProductDto(
+                1L,
+                "Kurtka zimowa",
+                "Pellentesque tempus interdum quam ut rhoncus. Donec ullamcorper turpis dolor. " +
+                        "Donec euismod pretium eros et eleifend. Aliquam vulputate faucibus lorem non auctor. " +
+                        "Vivamus erat turpis, molestie a nisl non, scelerisque luctus enim. " +
+                        "Nunc mi mi, laoreet ac mollis nec, pharetra sit amet tortor. Vivamus a bibendum purus.",
+                new BigDecimal(100),
+                1L);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
 
     }
 
