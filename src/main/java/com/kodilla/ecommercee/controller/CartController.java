@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/cart")
+@RequestMapping("/v1/carts")
 public class CartController {
 
     @PostMapping

@@ -9,17 +9,17 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping("/v1/users")
 public class UserController {
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
-    public UserDto createUser(@RequestBody UserDto userDto) {
+    public UserDto create(@RequestBody UserDto userDto) {
         return new UserDto(1L, "Mateusz", "unblocked", 3213L);
     }
 
     @PutMapping("/{id}/block")
-    public UserDto blockUser(@PathVariable() Long id) {
+    public UserDto block(@PathVariable Long id) {
         return new UserDto(id, "Matusz", "blocked", 31231L);
     }
 
     @PostMapping("/{id}/generateKey")
-    public Long generateKey(@PathVariable() Long id) {
+    public Long generateKey(@PathVariable Long id) {
         return 198282L;
     }
 }

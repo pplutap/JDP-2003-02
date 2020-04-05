@@ -17,12 +17,12 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public OrderDto get(@PathVariable Long orderId) {
+    public OrderDto get(@PathVariable Long id) {
         return new OrderDto(1L, 0L);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long orderId) {
+    public void delete(@PathVariable Long id) {
     }
 
     @PutMapping
