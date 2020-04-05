@@ -27,4 +27,8 @@ public class Cart {
 
     @Column(name = "PRICE")
     private BigDecimal price;
+
+    @OneToOne(cascade=CascadeType.PERSIST,fetch = FetchType.EAGER)
+    @JoinColumn(name="USER_ID")
+    private User user;
 }
