@@ -39,7 +39,6 @@ public class ProductRepositoryTestSuite {
     private Product boots;
     private Product shirt;
 
-
     private void createData() {
         List<Product> productList = new ArrayList<>();
         clothes = new Group(null, "clothes", productList);
