@@ -2,6 +2,8 @@ package com.kodilla.ecommercee.repository;
 
 import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.Product;
+import com.kodilla.ecommercee.exceptions.GroupNotFoundException;
+import com.kodilla.ecommercee.exceptions.ProductNotFoundException;
 import com.kodilla.ecommercee.service.GroupDbService;
 import com.kodilla.ecommercee.service.ProductDbService;
 import org.junit.Before;
@@ -82,7 +84,7 @@ public class ProductRepositoryTestSuite {
     }
 
     @Test
-    public void testDeleteProduct() {
+    public void testDeleteProduct() throws GroupNotFoundException {
         //Given
         createData();
         //When
@@ -100,11 +102,15 @@ public class ProductRepositoryTestSuite {
         Optional<Product> actualShirt = productRepository.findById(shirtId);
         Optional<Group> actualClothes = groupRepository.findById(clothesId);
 
-        int sizeOfGroup = actualClothes.orElse(new Group()).getProducts().size();
+        int sizeOfGroup = -1;
+        if (!actualClothes.isPresent()) {
+            throw new GroupNotFoundException();
+        } else {
+            sizeOfGroup = actualClothes.get().getProducts().size();
+        }
         productDbService.deleteById(trousersId);
-
         actualClothes = groupRepository.findById(clothesId);
-        int sizeOfGroupAfterDeleting = actualClothes.orElse(new Group()).getProducts().size();
+        int sizeOfGroupAfterDeleting = actualClothes.get().getProducts().size();
 
         assertTrue(actualTrousers.isPresent());
         assertTrue(actualBoots.isPresent());
@@ -119,7 +125,7 @@ public class ProductRepositoryTestSuite {
     }
 
     @Test
-    public void testProductUpdate() {
+    public void testProductUpdate() throws ProductNotFoundException {
         //Given
         createData();
 
@@ -143,6 +149,16 @@ public class ProductRepositoryTestSuite {
         String newBootsDescription = "size 38";
         BigDecimal newPriceOfShirt = new BigDecimal("56.4");
 
+        if (!actualTrousers.isPresent() || !actualBoots.isPresent() || !actualShirt.isPresent()) {
+            throw new ProductNotFoundException();
+        } else {
+            actualTrousers.get().setDescription(newTrousersDescription);
+            productRepository.save(actualTrousers.orElse(new Product()));
+            actualBoots.get().setDescription(newBootsDescription);
+            productRepository.save(actualBoots.orElse(new Product()));
+            actualShirt.get().setPrice(newPriceOfShirt);
+            productRepository.save(actualShirt.orElse(new Product()));
+        }
         actualTrousers.orElse(new Product()).setDescription(newTrousersDescription);
         productRepository.save(actualTrousers.orElse(new Product()));
         actualBoots.orElse(new Product()).setDescription(newBootsDescription);
@@ -150,9 +166,6 @@ public class ProductRepositoryTestSuite {
         actualShirt.orElse(new Product()).setPrice(newPriceOfShirt);
         productRepository.save(actualShirt.orElse(new Product()));
 
-        assertTrue(actualTrousers.isPresent());
-        assertTrue(actualBoots.isPresent());
-        assertTrue(actualShirt.isPresent());
         assertEquals(newTrousersDescription, actualTrousers.get().getDescription());
         assertEquals(newBootsDescription, actualBoots.get().getDescription());
         assertEquals(newPriceOfShirt, actualShirt.get().getPrice());
