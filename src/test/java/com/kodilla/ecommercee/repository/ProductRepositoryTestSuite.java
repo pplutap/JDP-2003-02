@@ -87,6 +87,7 @@ public class ProductRepositoryTestSuite {
     public void testDeleteProduct() throws GroupNotFoundException {
         //Given
         createData();
+
         //When
         groupRepository.save(clothes);
         productRepository.save(trousers);
@@ -102,15 +103,11 @@ public class ProductRepositoryTestSuite {
         Optional<Product> actualShirt = productRepository.findById(shirtId);
         Optional<Group> actualClothes = groupRepository.findById(clothesId);
 
-        int sizeOfGroup = -1;
-        if (!actualClothes.isPresent()) {
-            throw new GroupNotFoundException();
-        } else {
-            sizeOfGroup = actualClothes.get().getProducts().size();
-        }
+        int sizeOfGroup = actualClothes.orElseThrow(GroupNotFoundException::new).getProducts().size();
+
         productDbService.deleteById(trousersId);
         actualClothes = groupRepository.findById(clothesId);
-        int sizeOfGroupAfterDeleting = actualClothes.get().getProducts().size();
+        int sizeOfGroupAfterDeleting = actualClothes.orElseThrow(GroupNotFoundException::new).getProducts().size();
 
         assertTrue(actualTrousers.isPresent());
         assertTrue(actualBoots.isPresent());
@@ -149,16 +146,13 @@ public class ProductRepositoryTestSuite {
         String newBootsDescription = "size 38";
         BigDecimal newPriceOfShirt = new BigDecimal("56.4");
 
-        if (!actualTrousers.isPresent() || !actualBoots.isPresent() || !actualShirt.isPresent()) {
-            throw new ProductNotFoundException();
-        } else {
-            actualTrousers.get().setDescription(newTrousersDescription);
-            productRepository.save(actualTrousers.orElse(new Product()));
-            actualBoots.get().setDescription(newBootsDescription);
-            productRepository.save(actualBoots.orElse(new Product()));
-            actualShirt.get().setPrice(newPriceOfShirt);
-            productRepository.save(actualShirt.orElse(new Product()));
-        }
+
+        actualTrousers.orElseThrow(ProductNotFoundException::new).setDescription(newTrousersDescription);
+        productRepository.save(actualTrousers.get());
+        actualBoots.orElseThrow(ProductNotFoundException::new).setDescription(newBootsDescription);
+        productRepository.save(actualBoots.get());
+        actualShirt.orElseThrow(ProductNotFoundException::new).setPrice(newPriceOfShirt);
+        productRepository.save(actualShirt.get());
 
         assertEquals(newTrousersDescription, actualTrousers.get().getDescription());
         assertEquals(newBootsDescription, actualBoots.get().getDescription());
