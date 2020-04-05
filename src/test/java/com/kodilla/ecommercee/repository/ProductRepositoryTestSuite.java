@@ -159,12 +159,6 @@ public class ProductRepositoryTestSuite {
             actualShirt.get().setPrice(newPriceOfShirt);
             productRepository.save(actualShirt.orElse(new Product()));
         }
-        actualTrousers.orElse(new Product()).setDescription(newTrousersDescription);
-        productRepository.save(actualTrousers.orElse(new Product()));
-        actualBoots.orElse(new Product()).setDescription(newBootsDescription);
-        productRepository.save(actualBoots.orElse(new Product()));
-        actualShirt.orElse(new Product()).setPrice(newPriceOfShirt);
-        productRepository.save(actualShirt.orElse(new Product()));
 
         assertEquals(newTrousersDescription, actualTrousers.get().getDescription());
         assertEquals(newBootsDescription, actualBoots.get().getDescription());
