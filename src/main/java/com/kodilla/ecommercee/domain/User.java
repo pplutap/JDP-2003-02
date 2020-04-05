@@ -1,15 +1,15 @@
 package com.kodilla.ecommercee.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
+@Entity(name = "USERS")
 @Getter
-@AllArgsConstructor
+@Setter
 @NoArgsConstructor
-@Entity(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,8 +20,17 @@ public class User {
     private String username;
 
     @Column(name = "status")
-    private int status;
+    private String status;
 
     @Column(name = "userKey")
     private Long userKey;
+
+    @OneToOne(mappedBy = "user")
+    private Order order;
+
+    public User(String username, String status, Long userKey) {
+        this.username = username;
+        this.status = status;
+        this.userKey = userKey;
+    }
 }
