@@ -144,7 +144,7 @@ public class ProductRepositoryTestSuite {
 
         String newTrousersDescription = "Best one";
         String newBootsDescription = "size 38";
-        BigDecimal newPriceOfShirt = new BigDecimal("56.4");
+        BigDecimal newPriceOfShirt = new BigDecimal("56.40");
 
 
         actualTrousers.orElseThrow(ProductNotFoundException::new).setDescription(newTrousersDescription);
@@ -154,9 +154,13 @@ public class ProductRepositoryTestSuite {
         actualShirt.orElseThrow(ProductNotFoundException::new).setPrice(newPriceOfShirt);
         productRepository.save(actualShirt.get());
 
-        assertEquals(newTrousersDescription, actualTrousers.get().getDescription());
-        assertEquals(newBootsDescription, actualBoots.get().getDescription());
-        assertEquals(newPriceOfShirt, actualShirt.get().getPrice());
+        actualTrousers = productRepository.findById(trousersId);
+        actualBoots = productRepository.findById(bootsId);
+        actualShirt = productRepository.findById(shirtId);
+
+        assertEquals(newTrousersDescription, actualTrousers.orElseThrow(ProductNotFoundException::new).getDescription());
+        assertEquals(newBootsDescription, actualBoots.orElseThrow(ProductNotFoundException::new).getDescription());
+        assertEquals(newPriceOfShirt, actualShirt.orElseThrow(ProductNotFoundException::new).getPrice());
 
         //CleanUp
         productDbService.deleteById(trousersId);
