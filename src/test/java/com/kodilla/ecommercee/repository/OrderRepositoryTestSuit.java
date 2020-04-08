@@ -25,13 +25,14 @@ public class OrderRepositoryTestSuit {
     UserRepository userRepository;
     @Autowired
     CartRepository cartRepository;
+    @Autowired
+    GroupRepository groupRepository;
 
     private Order fillDb() {
         User user1 = new User("Mateusz", "unblocked", 3213L);
         List<Product> productsList = new ArrayList<>();
         Group ubrania = new Group("Ubrania", productsList);
         Group obuwie = new Group("Obuwie", productsList);
-        Order order = new Order(user1, productsList);
 
         Product product1 = new Product(
                 "Kurtka zimowa",
@@ -55,6 +56,8 @@ public class OrderRepositoryTestSuit {
         productsList.add(product2);
         productsList.add(product3);
 
+        Order order = new Order(user1, productsList);
+
         orderRepository.save(order);
         return order;
     }
@@ -76,6 +79,7 @@ public class OrderRepositoryTestSuit {
         orderRepository.deleteAll();
         userRepository.deleteAll();
         cartRepository.deleteAll();
+        groupRepository.deleteAll();
 
     }
 }

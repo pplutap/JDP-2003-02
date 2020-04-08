@@ -25,7 +25,7 @@ public class User {
     @Column(name = "userKey")
     private Long userKey;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Order order;
 
     public User(String username, String status, Long userKey) {

@@ -1,9 +1,11 @@
 package com.kodilla.ecommercee.domain;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -16,27 +18,24 @@ import java.util.List;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
+    @Column(name = "ID", unique = true)
     private Long id;
 
-    @NotNull
     @Column(name = "NAME")
     private String name;
 
-    @NotNull
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @NotNull
     @Column(name = "PRICE")
     private BigDecimal price;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "GROUP_ID")
     private Group group;
 
-    @ManyToMany
-    private List<Order> orderList;
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products", fetch = FetchType.EAGER)
+    private List<Order> orders;
 
     public Product(String name, String description, BigDecimal price, Group group) {
         this.name = name;
@@ -44,12 +43,4 @@ public class Product {
         this.price = price;
         this.group = group;
     }
-
-    public Product(String name, String description, BigDecimal price) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-    }
-
-
 }

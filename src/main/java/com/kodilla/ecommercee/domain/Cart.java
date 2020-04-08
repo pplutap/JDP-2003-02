@@ -31,7 +31,7 @@ public class Cart {
     @Column(name = "GROUPD_ID")
     private Long groupId;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "ORDER_ID")
     private Order order;
 

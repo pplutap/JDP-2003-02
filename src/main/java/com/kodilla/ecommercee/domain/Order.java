@@ -19,22 +19,17 @@ public class Order {
     @Column(name = "ID", unique = true)
     private Long id;
 
-    @ManyToMany(
-            targetEntity = Cart.class,
-            mappedBy = "order",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
-    )
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "products_order",
+            joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "order_id", referencedColumnName = "ID"))
     private List<Product> products = new ArrayList<>();
 
-    @OneToOne(
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
-    )
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private User user;
 
     public Order(User user, List<Product> products) {
         this.user = user;
-        this.products = getProducts();
+        this.products = products;
     }
 }
