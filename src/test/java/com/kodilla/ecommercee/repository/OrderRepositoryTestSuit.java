@@ -1,7 +1,8 @@
 package com.kodilla.ecommercee.repository;
 
-import com.kodilla.ecommercee.domain.Cart;
+import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.Order;
+import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.User;
 import org.junit.Assert;
 import org.junit.Test;
@@ -27,33 +28,32 @@ public class OrderRepositoryTestSuit {
 
     private Order fillDb() {
         User user1 = new User("Mateusz", "unblocked", 3213L);
-        List<Cart> cartsList = new ArrayList<>();
-        Order order = new Order(user1, cartsList);
+        List<Product> productsList = new ArrayList<>();
+        Group ubrania = new Group("Ubrania", productsList);
+        Group obuwie = new Group("Obuwie", productsList);
+        Order order = new Order(user1, productsList);
 
-        Cart cart1 = new Cart(
+        Product product1 = new Product(
                 "Kurtka zimowa",
                 "Pellentesque tempus interdum quam ut rhoncus. Donec ullamcorper turpis dolor.",
                 new BigDecimal(100),
-                1L,
-                order);
+                ubrania);
 
-        Cart cart2 = new Cart(
+        Product product2 = new Product(
                 "płaszcz",
                 "Pellentesque tempus interdum quam ut rhoncus. Donec ullamcorper turpis dolor.",
                 new BigDecimal(150),
-                1L,
-                order);
+                ubrania);
 
-        Cart cart3 = new Cart(
+        Product product3 = new Product(
                 "buty",
                 "Pellentesque tempus interdum quam ut rhoncus. Donec ullamcorper turpis dolor.",
                 new BigDecimal(100),
-                4L,
-                order);
+                obuwie);
 
-        cartsList.add(cart1);
-        cartsList.add(cart2);
-        cartsList.add(cart3);
+        productsList.add(product1);
+        productsList.add(product2);
+        productsList.add(product3);
 
         orderRepository.save(order);
         return order;
@@ -69,7 +69,7 @@ public class OrderRepositoryTestSuit {
         Optional<Order> orderFromDb = orderRepository.findById(id);
 
         //Then
-        Assert.assertEquals(3, orderFromDb.get().getCarts().size());
+        Assert.assertEquals(3, orderFromDb.get().getProducts().size());
         Assert.assertEquals("Mateusz", orderFromDb.get().getUser().getUsername());
 
         //Clean up

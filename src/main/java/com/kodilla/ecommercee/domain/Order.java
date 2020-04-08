@@ -19,13 +19,13 @@ public class Order {
     @Column(name = "ID", unique = true)
     private Long id;
 
-    @OneToMany(
+    @ManyToMany(
             targetEntity = Cart.class,
             mappedBy = "order",
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER
     )
-    private List<Cart> carts = new ArrayList<>();
+    private List<Product> products = new ArrayList<>();
 
     @OneToOne(
             cascade = CascadeType.ALL,
@@ -33,8 +33,8 @@ public class Order {
     )
     private User user;
 
-    public Order(User user, List<Cart> carts) {
+    public Order(User user, List<Product> products) {
         this.user = user;
-        this.carts = carts;
+        this.products = getProducts();
     }
 }

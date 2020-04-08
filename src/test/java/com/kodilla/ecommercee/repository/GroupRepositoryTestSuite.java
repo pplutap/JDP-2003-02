@@ -29,10 +29,10 @@ public class GroupRepositoryTestSuite {
     private Group getTestGroup() {
         String name = "dresses";
         List<Product> products = new ArrayList<>();
-        Group dresses = new Group(null, name, products);
-        Product product1 = new Product(null, "P1", "Pellentesque tempus interdum quam ut rhoncus.", BigDecimal.valueOf(230), dresses);
-        Product product2 = new Product(null, "P2", "Tempus interdum quam ut rhoncus.", BigDecimal.valueOf(255), dresses);
-        Product product3 = new Product(null, "P3", "Interdum quam ut rhoncus.", BigDecimal.valueOf(543), dresses);
+        Group dresses = new Group(name, products);
+        Product product1 = new Product("P1", "Pellentesque tempus interdum quam ut rhoncus.", BigDecimal.valueOf(230), dresses);
+        Product product2 = new Product("P2", "Tempus interdum quam ut rhoncus.", BigDecimal.valueOf(255), dresses);
+        Product product3 = new Product("P3", "Interdum quam ut rhoncus.", BigDecimal.valueOf(543), dresses);
         products.add(product1);
         products.add(product2);
         products.add(product3);
