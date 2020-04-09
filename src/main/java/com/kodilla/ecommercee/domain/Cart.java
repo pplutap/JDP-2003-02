@@ -3,11 +3,14 @@ package com.kodilla.ecommercee.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-
+import java.util.ArrayList;
+import java.util.List;
+@Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,20 +18,22 @@ import java.math.BigDecimal;
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
-    @Column(name = "ID",unique = true)
+    @Column(name = "CART_ID",unique = true)
     private Long id;
 
-    @Column(name = "PRODUCT_NAME")
-    private String productName;
+    @NotNull
+    @Column(name="TOTAL_PRICE")
+    private BigDecimal totalPrice;
 
-    @Column(name = "DESCRIPTION")
-    private String description;
-
-    @Column(name = "PRICE")
-    private BigDecimal price;
-
-    @OneToOne(cascade=CascadeType.PERSIST,fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="USER_ID")
     private User user;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "CART_PRODUCT",
+            joinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")}
+    )
+    private List<Product> cartItems = new ArrayList<>();
 }
