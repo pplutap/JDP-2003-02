@@ -1,9 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -13,6 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "PRODUCTS")
 public class Product {
@@ -30,17 +28,18 @@ public class Product {
     @Column(name = "PRICE")
     private BigDecimal price;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "GROUP_ID")
     private Group group;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products", fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "PRODUCT_ORDER",
+            joinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")}
+    )
     private List<Order> orders;
 
-    public Product(String name, String description, BigDecimal price, Group group) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.group = group;
-    }
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "cartItems", fetch = FetchType.LAZY)
+    private List<Cart> carts;
 }
