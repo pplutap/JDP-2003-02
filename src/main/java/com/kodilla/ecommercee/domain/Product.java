@@ -16,7 +16,7 @@ import java.util.List;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID", unique = true)
+    @Column(name = "PRODUCT_ID", unique = true)
     private Long id;
 
     @Column(name = "NAME")
@@ -35,16 +35,16 @@ public class Product {
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "PRODUCT_ORDER",
-            joinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "ID")}
+            joinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "CART_ID")}
     )
     private List<Order> orders;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "PRODUCT_CART",
-            joinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "ID")}
+            joinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")}
     )
     private List<Cart> carts;
 }
