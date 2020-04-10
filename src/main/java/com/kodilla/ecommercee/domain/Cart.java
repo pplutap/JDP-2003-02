@@ -3,14 +3,13 @@ package com.kodilla.ecommercee.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-@Setter
+
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,15 +17,19 @@ import java.util.List;
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "CART_ID",unique = true)
+    @Column(name = "CART_ID", unique = true)
     private Long id;
 
     @NotNull
-    @Column(name="TOTAL_PRICE")
+    @Column(name = "TOTAL_PRICE")
     private BigDecimal totalPrice;
 
+    @NotNull
+    @Column(name = "IS_CLOSED")
+    private boolean isClosed;
+
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="USER_ID")
+    @JoinColumn(name = "USER_ID")
     private User user;
 
     @ManyToMany(fetch = FetchType.EAGER)

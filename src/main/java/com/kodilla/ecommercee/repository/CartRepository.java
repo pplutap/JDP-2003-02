@@ -7,9 +7,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+
 @Transactional
 @Repository
-public interface CartRepository extends CrudRepository<Cart,Long> {
+public interface CartRepository extends CrudRepository<Cart, Long> {
 
     @Override
     List<Cart> findAll();

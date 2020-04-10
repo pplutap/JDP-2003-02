@@ -50,7 +50,7 @@ public class CartRepositoryTestSuite {
         cartItems.add(product11);
         cartItems.add(product21);
         cartItems.add(product31);
-        Cart cartWithProducts = new Cart(null, new BigDecimal(200.0), wrobel, cartItems);
+        Cart cartWithProducts = new Cart(null, new BigDecimal(200.0),true, wrobel, cartItems);
 
         //when
         userRepository.save(wrobel);
@@ -65,17 +65,12 @@ public class CartRepositoryTestSuite {
         Long pro31Id = product31.getId();
         cartRepository.save(cartWithProducts);
 
-
-
         cartWithProducts.getCartItems().remove(product11);
         cartWithProducts.getCartItems().remove(product21);
         cartWithProducts.getCartItems().remove(product31);
         cartRepository.save(cartWithProducts);
         Long cartWithProdId = cartWithProducts.getId();
-
-
         int actualCartSize = cartWithProducts.getCartItems().size();
-
 
         //Then
         Assert.assertEquals(0, actualCartSize);
@@ -91,7 +86,6 @@ public class CartRepositoryTestSuite {
         } catch (Exception e) {
             //do nothing
         }
-
     }
 
 
@@ -113,7 +107,8 @@ public class CartRepositoryTestSuite {
         cartItems.add(product10);
         cartItems.add(product20);
         cartItems.add(product30);
-        Cart cartWithProd = new Cart(null, new BigDecimal(0), kowalski, cartItems);
+        Cart cartWithProd = new Cart(null, new BigDecimal(0),true, kowalski, cartItems);
+
 
         //when
         userRepository.save(kowalski);
@@ -143,7 +138,6 @@ public class CartRepositoryTestSuite {
         } catch (Exception e) {
             //do nothing
         }
-
     }
 
 
@@ -161,7 +155,7 @@ public class CartRepositoryTestSuite {
         cartItems.add(product13);
         cartItems.add(product23);
         cartItems.add(product33);
-        Cart cartWithProducts = new Cart(null, new BigDecimal(20.0), nowak, cartItems);
+        Cart cartWithProducts = new Cart(null, new BigDecimal(20.0),true, nowak, cartItems);
 
         //when
         userRepository.save(nowak);
@@ -181,7 +175,7 @@ public class CartRepositoryTestSuite {
         userRepository.save(nowak);
 
         Long checkUserKey = cartWithProducts.getUser().getUserKey();
-        
+
         //Then
         Assert.assertEquals(125L, checkUserKey.longValue());
 
@@ -193,12 +187,8 @@ public class CartRepositoryTestSuite {
             productDbService.deleteById(pro33Id);
             groupRepository.deleteById(dresses33Id);
             cartRepository.deleteById(cartWithProductsId);
-
         } catch (Exception e) {
             //do nothing
         }
-
     }
-
-
 }
