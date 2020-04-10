@@ -3,35 +3,48 @@ package com.kodilla.ecommercee.domain;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.List;
 
 @ToString
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "PRODUCTS")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
+    @Column(name = "ID", unique = true)
     private Long id;
 
-    @NotNull
     @Column(name = "NAME")
     private String name;
 
-    @NotNull
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @NotNull
     @Column(name = "PRICE")
     private BigDecimal price;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "GROUP_ID")
     private Group group;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "PRODUCT_ORDER",
+            joinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "ID")}
+    )
+    private List<Order> orders;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "PRODUCT_CART",
+            joinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "ID")}
+    )
+    private List<Cart> carts;
 }
