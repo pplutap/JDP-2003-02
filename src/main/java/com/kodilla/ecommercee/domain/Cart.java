@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -16,19 +18,26 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
-    @Column(name = "ID",unique = true)
+    @Column(name = "CART_ID",unique = true)
     private Long id;
 
-    @Column(name = "PRODUCT_NAME")
-    private String productName;
-
-    @Column(name = "DESCRIPTION")
-    private String description;
-
     @Column(name = "PRICE")
-    private BigDecimal price;
+    @NotNull
+    private BigDecimal totalPrice;
 
-    @OneToOne(cascade=CascadeType.PERSIST,fetch = FetchType.EAGER)
-    @JoinColumn(name="USER_ID")
+    @Column(name = "IS_CLOSED")
+    @NotNull
+    private boolean isClosed;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "USER_ID")
     private User user;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "CART_PRODUCT",
+            joinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")}
+    )
+    private List<Product> cartItems = new ArrayList<>();
 }
