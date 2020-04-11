@@ -17,16 +17,15 @@ import java.util.List;
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
-    @Column(name = "CART_ID",unique = true)
+    @Column(name = "CART_ID", unique = true)
     private Long id;
 
-    @Column(name = "PRICE")
     @NotNull
+    @Column(name = "TOTAL_PRICE")
     private BigDecimal totalPrice;
 
-    @Column(name = "IS_CLOSED")
     @NotNull
+    @Column(name = "IS_CLOSED")
     private boolean isClosed;
 
     @OneToOne(fetch = FetchType.EAGER)

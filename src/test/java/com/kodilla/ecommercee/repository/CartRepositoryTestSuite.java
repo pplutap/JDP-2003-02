@@ -20,6 +20,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CartRepositoryTestSuite {
+
     @Autowired
     private CartRepository cartRepository;
     @Autowired
@@ -64,16 +65,13 @@ public class CartRepositoryTestSuite {
         cartRepository.save(cartWithProducts);
 
 
-
         cartWithProducts.getCartItems().remove(product11);
         cartWithProducts.getCartItems().remove(product21);
         cartWithProducts.getCartItems().remove(product31);
         cartRepository.save(cartWithProducts);
         Long cartWithProdId = cartWithProducts.getId();
 
-
         int actualCartSize = cartWithProducts.getCartItems().size();
-
 
         //Then
         Assert.assertEquals(0, actualCartSize);
@@ -89,7 +87,6 @@ public class CartRepositoryTestSuite {
         } catch (Exception e) {
             //do nothing
         }
-
     }
 
 
@@ -141,7 +138,6 @@ public class CartRepositoryTestSuite {
         } catch (Exception e) {
             //do nothing
         }
-
     }
 
 
@@ -191,7 +187,6 @@ public class CartRepositoryTestSuite {
             productDbService.deleteById(pro33Id);
             groupRepository.deleteById(dresses33Id);
             cartRepository.deleteById(cartWithProductsId);
-
         } catch (Exception e) {
             //do nothing
         }
