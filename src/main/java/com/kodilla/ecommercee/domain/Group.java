@@ -1,15 +1,13 @@
 package com.kodilla.ecommercee.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+@ToString
 @Getter
 @Setter
 @AllArgsConstructor
@@ -19,7 +17,7 @@ import java.util.List;
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID", unique = true)
+    @Column(name = "GROUP_ID", unique = true)
     private Long id;
 
     @NotNull
@@ -29,7 +27,7 @@ public class Group {
     @OneToMany(
             targetEntity = Product.class,
             mappedBy = "group",
-            cascade = {CascadeType.REFRESH, CascadeType.MERGE, CascadeType.PERSIST},
+            cascade = CascadeType.ALL,
             fetch = FetchType.EAGER
     )
     private List<Product> products = new ArrayList<>();

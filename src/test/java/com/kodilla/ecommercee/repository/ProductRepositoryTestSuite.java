@@ -50,7 +50,6 @@ public class ProductRepositoryTestSuite {
         productList.add(shirt);
     }
 
-
     @Test
     public void testSaveProduct() {
         //Given
@@ -78,6 +77,7 @@ public class ProductRepositoryTestSuite {
         assertTrue(actualShirt.isPresent());
         assertEquals(3, actualClothes.get().getProducts().size());
         assertEquals(Product.class, actualClothes.get().getProducts().get(0).getClass());
+
         assertTrue(actualClothes.get().getProducts().stream()
                 .anyMatch(e -> e.getName().equals(actualBoots.get().getName())));
         assertTrue(actualClothes.get().getProducts().stream()
@@ -125,6 +125,7 @@ public class ProductRepositoryTestSuite {
         productDbService.deleteById(bootsId);
         productDbService.deleteById(shirtId);
         groupDbService.deleteById(clothesId);
+
     }
 
     @Test

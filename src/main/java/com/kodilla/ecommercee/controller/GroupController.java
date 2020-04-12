@@ -15,7 +15,9 @@ public class GroupController {
 
     @GetMapping
     public List<GroupDto> get() {
-        return Arrays.asList(new GroupDto(1L, "Shoes"), new GroupDto(2L, "Pants"));
+        return Arrays.asList(
+                GroupDto.builder().id(1L).name("Clothes").build(),
+                GroupDto.builder().id(2L).name("Electronics").build());
     }
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
@@ -24,7 +26,10 @@ public class GroupController {
 
     @GetMapping("/{id}")
     public GroupDto get(@PathVariable Long id) throws GroupDefinitionException {
-        return new GroupDto(1L, "Shoes");
+        return GroupDto.builder()
+                .id(1L)
+                .name("Shoes")
+                .build();
     }
 
     @PutMapping
