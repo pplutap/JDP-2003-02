@@ -28,7 +28,7 @@ public class Cart {
     @Column(name = "IS_CLOSED")
     private boolean isClosed;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
 
