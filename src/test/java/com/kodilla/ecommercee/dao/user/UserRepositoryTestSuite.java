@@ -23,9 +23,9 @@ public class UserRepositoryTestSuite {
     public void testCreateUsers() {
 
         //Given
-        User user1 = new User(1L, "tomasz-kowlaski", 0, 11L);
-        User user2 = new User(2L, "joanna-nowak", 1, 21L);
-        User user3 = new User(3L, "michał-wróbel", 2, 31L);
+        User user1 = User.builder().username("wrobel1").status(1).userKey(77L).build();
+        User user2 = User.builder().username("wrobel2").status(1).userKey(77L).build();
+        User user3 = User.builder().username("wrobel3").status(1).userKey(77L).build();
 
         // When
         userRepository.save(user1);
@@ -53,9 +53,9 @@ public class UserRepositoryTestSuite {
     @Test
     public void testUpdateStatusOfUser() {
         //Given
-        User user1 = new User(1L, "tomasz-kowlaski", 0, 11L);
-        User user2 = new User(2L, "joanna-nowak", 1, 21L);
-        User user3 = new User(3L, "michał-wróbel", 2, 31L);
+        User user1 = User.builder().username("wrobel1").status(1).userKey(77L).build();
+        User user2 = User.builder().username("wrobel2").status(1).userKey(77L).build();
+        User user3 = User.builder().username("wrobel3").status(1).userKey(77L).build();
 
         // When
         userRepository.save(user1);

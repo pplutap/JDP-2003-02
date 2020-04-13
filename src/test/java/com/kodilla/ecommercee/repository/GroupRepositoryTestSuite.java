@@ -22,72 +22,44 @@ import java.util.Optional;
 public class GroupRepositoryTestSuite {
     @Autowired
     private GroupRepository groupRepository;
-    @Autowired
-    private GroupDbService groupDbService;
-    @Autowired
-    private ProductDbService productDbService;
-    @Autowired
-    private ProductRepository productRepository;
 
     private Group getTestGroup() {
         String name = "dresses";
+
+
         List<Product> products = new ArrayList<>();
-        Group dresses = new Group(null, name, products);
-        Product product1 = new Product(null, "P1", "Pellentesque tempus interdum quam ut rhoncus.", BigDecimal.valueOf(230), dresses);
-        Product product2 = new Product(null, "P2", "Tempus interdum quam ut rhoncus.", BigDecimal.valueOf(255), dresses);
-        Product product3 = new Product(null, "P3", "Interdum quam ut rhoncus.", BigDecimal.valueOf(543), dresses);
+
+        Product product1 = Product.builder().name("Boots").description("Leather1").price(new BigDecimal("43.2")).build();
+        Product product2 = Product.builder().name("Boots1").description("Leather2").price(new BigDecimal("43.2")).build();
+        Product product3 = Product.builder().name("Boots2").description("Leather3").price(new BigDecimal("43.2")).build();
         products.add(product1);
         products.add(product2);
         products.add(product3);
 
-        return dresses;
-    }
+        System.out.println(products.size());
 
-    private void cleanUp(Group group) {
-        group.getProducts().stream().forEach(p -> productDbService.deleteById(p.getId()));
-        groupDbService.deleteById(group.getId());
+        Group group = new Group(null, name, products);
+        groupRepository.save(group);
 
-        Assert.assertEquals(0, groupRepository.count());
-        Assert.assertEquals(0, productRepository.count());
+        return group;
+
     }
 
     @Test
     public void testSaveGroupWithProducts() {
         //Given
         Group group = getTestGroup();
-
         //When
-        groupRepository.save(group);
 
         //Then
         Long groupId = group.getId();
         Optional<Group> actualGroup = groupRepository.findById(groupId);
         Assert.assertTrue(actualGroup.isPresent());
         Assert.assertEquals("dresses", actualGroup.get().getName());
-        Assert.assertEquals(3, actualGroup.get().getProducts().size());
+        Assert.assertEquals(3, group.getProducts().size());
 
         //CleanUp
-        cleanUp(actualGroup.get());
-    }
-
-    @Test
-    public void testDeleteProductWithGroup() {
-        //Given
-        Group group = getTestGroup();
-
-        //When
-        groupRepository.save(group);
-        Long productId = group.getProducts().get(0).getId();
-        productDbService.deleteById(productId);
-
-        //Then
-        Long groupId = group.getId();
-        Optional<Group> actualGroup = groupRepository.findById(groupId);
-        Assert.assertTrue(actualGroup.isPresent());
-        Assert.assertEquals(2, actualGroup.get().getProducts().size());
-
-        //CleanUp
-        cleanUp(actualGroup.get());
+        groupRepository.deleteAll();
     }
 
     @Test
@@ -108,6 +80,7 @@ public class GroupRepositoryTestSuite {
         Assert.assertEquals(newGroupName, actualGroup.get().getName());
 
         //CleanUp
-        cleanUp(actualGroup.get());
+        groupRepository.deleteAll();
     }
 }
+

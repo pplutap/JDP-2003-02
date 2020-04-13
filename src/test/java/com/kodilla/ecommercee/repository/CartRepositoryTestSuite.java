@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CartRepositoryTestSuite {
@@ -38,13 +39,13 @@ public class CartRepositoryTestSuite {
     @Test
     public void testRemoveProductsFromCart() {
         //Given
-        User wrobel = new User(null, "wrobel", 1, 77L);
+        User wrobel = User.builder().username("wrobel").status(1).userKey(77L).build();
         String groupName = "dresses";
         List<Product> products = new ArrayList<>();
         Group groupDresses = new Group(null, groupName, products);
-        Product product11 = new Product(null, "P1", "Pellentesque tempus interdum quam ut rhoncus.", BigDecimal.valueOf(230), groupDresses);
-        Product product21 = new Product(null, "P2", "Tempus interdum quam ut rhoncus.", BigDecimal.valueOf(255), groupDresses);
-        Product product31 = new Product(null, "P3", "Interdum quam ut rhoncus.", BigDecimal.valueOf(543), groupDresses);
+        Product product11 = Product.builder().name("P1").description("Pellentesque tempus interdum quam ut rhoncus.").price(BigDecimal.valueOf(230)).build();
+        Product product21 = Product.builder().name("P2").description("Pellentesque tempus interdum quam ut rhoncus.").price(BigDecimal.valueOf(230)).build();
+        Product product31 = Product.builder().name("P3").description("Pellentesque tempus interdum quam ut rhoncus.").price(BigDecimal.valueOf(230)).build();
         List<Product> cartItems = new ArrayList<>();
         cartItems.add(product11);
         cartItems.add(product21);
@@ -93,13 +94,13 @@ public class CartRepositoryTestSuite {
     @Test
     public void testAddProductToCart() {
         //Given
-        User kowalski = new User(null, "kowalski", 1, 111L);
+        User kowalski = User.builder().username("kowalski").status(1).userKey(111L).build();
         String groupName = "dresses";
         List<Product> products = new ArrayList<>();
         Group groupDresses = new Group(null, groupName, products);
-        Product product10 = new Product(null, "P1", "Pellentesque tempus interdum quam ut rhoncus.", BigDecimal.valueOf(230), groupDresses);
-        Product product20 = new Product(null, "P2", "Tempus interdum quam ut rhoncus.", BigDecimal.valueOf(255), groupDresses);
-        Product product30 = new Product(null, "P3", "Interdum quam ut rhoncus.", BigDecimal.valueOf(543), groupDresses);
+        Product product10 = Product.builder().name("P1").description("Pellentesque tempus interdum quam ut rhoncus.").price(BigDecimal.valueOf(230)).build();
+        Product product20 = Product.builder().name("P2").description("Pellentesque tempus interdum quam ut rhoncus.").price(BigDecimal.valueOf(230)).build();
+        Product product30 = Product.builder().name("P3").description("Pellentesque tempus interdum quam ut rhoncus.").price(BigDecimal.valueOf(230)).build();
         products.add(product10);
         products.add(product20);
         products.add(product30);
@@ -144,13 +145,13 @@ public class CartRepositoryTestSuite {
     @Test
     public void updateUserDataWithCart() {
         //Given
-        User nowak = new User(null, "nowak", 0, 99L);
+        User nowak = User.builder().username("nowak").status(0).userKey(99L).build();
         String groupName = "dresses";
         List<Product> products = new ArrayList<>();
         Group groupDresses = new Group(null, groupName, products);
-        Product product13 = new Product(null, "P1", "Pellentesque tempus interdum quam ut rhoncus.", BigDecimal.valueOf(230), groupDresses);
-        Product product23 = new Product(null, "P2", "Tempus interdum quam ut rhoncus.", BigDecimal.valueOf(255), groupDresses);
-        Product product33 = new Product(null, "P3", "Interdum quam ut rhoncus.", BigDecimal.valueOf(543), groupDresses);
+        Product product13 = Product.builder().name("P1").description("Pellentesque tempus interdum quam ut rhoncus.").price(BigDecimal.valueOf(230)).build();
+        Product product23 = Product.builder().name("P2").description("Pellentesque tempus interdum quam ut rhoncus.").price(BigDecimal.valueOf(230)).build();
+        Product product33 = Product.builder().name("P3").description("Pellentesque tempus interdum quam ut rhoncus.").price(BigDecimal.valueOf(230)).build();
         List<Product> cartItems = new ArrayList<>();
         cartItems.add(product13);
         cartItems.add(product23);
