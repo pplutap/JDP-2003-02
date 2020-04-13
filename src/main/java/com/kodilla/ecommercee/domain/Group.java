@@ -15,6 +15,11 @@ import java.util.List;
 @Entity
 @Table(name = "PRODUCTS_GROUPS")
 public class Group {
+    public Group(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "GROUP_ID", unique = true)
