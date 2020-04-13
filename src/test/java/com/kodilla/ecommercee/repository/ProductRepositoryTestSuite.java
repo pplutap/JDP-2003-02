@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,6 @@ import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-@Transactional
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ProductRepositoryTestSuite {
@@ -49,10 +47,11 @@ public class ProductRepositoryTestSuite {
         Optional<Product> actualBoots = productRepository.findById(bootsId);
         Optional<Product> actualShirt = productRepository.findById(shirtId);
 
+        int listSize = productRepository.findAll().size();
+
         assertTrue(actualBoots.isPresent());
         assertTrue(actualShirt.isPresent());
-
-        assertEquals(2, productRepository.findAll().size());
+        assertEquals(2, listSize);
 
         //CleanUp
         productRepository.deleteAll();
