@@ -19,36 +19,6 @@ public class UserRepositoryTestSuite {
     private UserRepository userRepository;
 
 
-    @Test
-    public void testCreateUsers() {
-
-        //Given
-        User user1 = User.builder().username("wrobel1").status(1).userKey(77L).build();
-        User user2 = User.builder().username("wrobel2").status(1).userKey(77L).build();
-        User user3 = User.builder().username("wrobel3").status(1).userKey(77L).build();
-
-        // When
-        userRepository.save(user1);
-        Long user1Id = user1.getId();
-        userRepository.save(user2);
-        Long user2Id = user2.getId();
-        userRepository.save(user3);
-        Long user3Id = user3.getId();
-
-        // Then
-        Assert.assertEquals(1L, user1Id.longValue());
-        Assert.assertEquals(2L, user2Id.longValue());
-        Assert.assertEquals(3L, user3Id.longValue());
-
-       //CleanUp
-        try {
-            userRepository.deleteById(user1Id);
-            userRepository.deleteById(user2Id);
-            userRepository.deleteById(user3Id);
-        } catch (Exception e) {
-            //do nothing
-        }
-    }
 
     @Test
     public void testUpdateStatusOfUser() {
