@@ -1,7 +1,6 @@
-package com.kodilla.ecommercee.dao.user;
+package com.kodilla.ecommercee.repository;
 
 import com.kodilla.ecommercee.domain.User;
-import com.kodilla.ecommercee.repository.UserRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,14 +17,13 @@ public class UserRepositoryTestSuite {
     @Autowired
     private UserRepository userRepository;
 
-
     @Test
     public void testCreateUsers() {
 
         //Given
-        User user1 = new User(1L, "tomasz-kowlaski", 0, 11L);
-        User user2 = new User(2L, "joanna-nowak", 1, 21L);
-        User user3 = new User(3L, "michał-wróbel", 2, 31L);
+        User user1 = User.builder().id(null).username("tomasz-kowlaski").status(1).userKey(11L).build();
+        User user2 = User.builder().id(null).username("joanna-nowak").status(1).userKey(11L).build();
+        User user3 = User.builder().id(null).username("michał-wróbel").status(1).userKey(11L).build();
 
         // When
         userRepository.save(user1);
@@ -36,11 +34,14 @@ public class UserRepositoryTestSuite {
         Long user3Id = user3.getId();
 
         // Then
-        Assert.assertEquals(1L, user1Id.longValue());
-        Assert.assertEquals(2L, user2Id.longValue());
-        Assert.assertEquals(3L, user3Id.longValue());
+        Optional<User> actualUser1 = userRepository.findById(user1Id);
+        Assert.assertTrue(actualUser1.isPresent());
+        Optional<User> actualUser2 = userRepository.findById(user2Id);
+        Assert.assertTrue(actualUser2.isPresent());
+        Optional<User> actualUser3 = userRepository.findById(user3Id);
+        Assert.assertTrue(actualUser3.isPresent());
 
-       //CleanUp
+        //CleanUp
         try {
             userRepository.deleteById(user1Id);
             userRepository.deleteById(user2Id);
@@ -53,9 +54,9 @@ public class UserRepositoryTestSuite {
     @Test
     public void testUpdateStatusOfUser() {
         //Given
-        User user1 = new User(1L, "tomasz-kowlaski", 0, 11L);
-        User user2 = new User(2L, "joanna-nowak", 1, 21L);
-        User user3 = new User(3L, "michał-wróbel", 2, 31L);
+        User user1 = User.builder().id(null).username("tomasz-kowlaski").status(1).userKey(11L).build();
+        User user2 = User.builder().id(null).username("joanna-nowak").status(1).userKey(11L).build();
+        User user3 = User.builder().id(null).username("michał-wróbel").status(1).userKey(11L).build();
 
         // When
         userRepository.save(user1);
@@ -66,14 +67,13 @@ public class UserRepositoryTestSuite {
         Long user3Id = user3.getId();
 
 
-
-
         //Then
         Optional<User> findUser = userRepository.findById(user2Id);
-       if( findUser.isPresent()){
-        findUser.get().setStatus(2);
-        User updateUser = userRepository.save(findUser.get());
-        Assert.assertEquals(2, updateUser.getStatus());}
+        if (findUser.isPresent()) {
+            findUser.get().setStatus(2);
+            User updateUser = userRepository.save(findUser.get());
+            Assert.assertEquals(2, updateUser.getStatus());
+        }
 
         //CleanUp
         try {
@@ -84,6 +84,4 @@ public class UserRepositoryTestSuite {
             //do nothing
         }
     }
-
-
 }

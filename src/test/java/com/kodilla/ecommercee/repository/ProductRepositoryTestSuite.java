@@ -1,6 +1,7 @@
 package com.kodilla.ecommercee.repository;
 
 import com.kodilla.ecommercee.domain.Group;
+import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.exceptions.GroupNotFoundException;
 import com.kodilla.ecommercee.exceptions.ProductNotFoundException;
@@ -38,13 +39,13 @@ public class ProductRepositoryTestSuite {
     private Product boots;
     private Product shirt;
 
-
     private void createData() {
         List<Product> productList = new ArrayList<>();
+        List<Order> orders = new ArrayList<>();
         clothes = new Group(null, "clothes", productList);
-        trousers = new Product(null, "Trousers", "Denim", new BigDecimal("31"), clothes);
-        boots = new Product(null, "Boots", "Leather", new BigDecimal("43.2"), clothes);
-        shirt = new Product(null, "shirt", "White", new BigDecimal("43.2"), clothes);
+        trousers = new Product(null, "Trousers", "Denim", new BigDecimal("31"), clothes, orders);
+        boots = new Product(null, "Boots", "Leather", new BigDecimal("43.2"), clothes, orders);
+        shirt = new Product(null, "shirt", "White", new BigDecimal("43.2"), clothes, orders);
         productList.add(trousers);
         productList.add(boots);
         productList.add(shirt);
