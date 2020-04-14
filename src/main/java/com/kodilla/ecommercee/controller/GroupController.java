@@ -14,7 +14,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping("/v1/groups")
 public class GroupController {
-
     private GroupMapper mapper;
     private GroupDbService dbService;
 
