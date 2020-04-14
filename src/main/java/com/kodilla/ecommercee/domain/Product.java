@@ -5,12 +5,14 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.List;
 
 @ToString
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "PRODUCTS")
 public class Product {
@@ -19,19 +21,24 @@ public class Product {
     @Column(name = "PRODUCT_ID")
     private Long id;
 
-    @NotNull
     @Column(name = "NAME")
     private String name;
 
-    @NotNull
     @Column(name = "DESCRIPTION")
     private String description;
-
-    @NotNull
+    
     @Column(name = "PRICE")
     private BigDecimal price;
 
     @ManyToOne
     @JoinColumn(name = "GROUP_ID")
     private Group group;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "PRODUCT_ORDER",
+            joinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")}
+    )
+    private List<Order> orders;
 }

@@ -12,6 +12,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "PRODUCTS_GROUPS")
 public class Group {
@@ -30,5 +31,5 @@ public class Group {
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER
     )
-    private List<Product> products = new ArrayList<>();
+    private List<Product> products;
 }

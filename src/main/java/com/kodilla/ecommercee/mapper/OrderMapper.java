@@ -10,16 +10,16 @@ import java.util.stream.Collectors;
 @Component
 public class OrderMapper {
     public Order mapToOrder(final OrderDto orderDto) {
-        return new Order(orderDto.getId(), orderDto.getUser(), orderDto.getProductsList());
+        return new Order(orderDto.getId(), orderDto.getCreationDate(), orderDto.getStatus(), orderDto.getUser(), orderDto.getProductsList());
     }
 
     public OrderDto mapToOrderDto(final Order order) {
-        return new OrderDto(order.getId(), order.getUser(), order.getProducts());
+        return new OrderDto(order.getId(), order.getCreationDate(), order.getStatus(),order.getUser(), order.getProducts());
     }
 
     public List<OrderDto> mapToOrderDtoList(List<Order> ordersList) {
         return ordersList.stream()
-                .map(o -> new OrderDto(o.getId(), o.getUser(), o.getProducts()))
+                .map(o -> new OrderDto(o.getId(), o.getCreationDate(), o.getStatus(), o.getUser(), o.getProducts()))
                 .collect(Collectors.toList());
     }
 }
