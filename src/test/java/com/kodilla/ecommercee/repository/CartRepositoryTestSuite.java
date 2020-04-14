@@ -13,6 +13,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -33,107 +36,60 @@ public class CartRepositoryTestSuite {
 
 
     @Test
-    public void testRemoveProductsFromCart() {
+    public void testSaveCart() {
         //Given
-        User wrobel =  new User().builder().id(null).username("wrobel").status(1).userKey(77L).build();
-        String groupName = "dresses";
+        User kowalski = User.builder().id(null).username("kowalski").status(1).userKey(111L).build();
+        String groupName = "clothes";
         List<Product> products = new ArrayList<>();
+        Group groupClothes = new Group(null, groupName, products);
         List<Order> orders = new ArrayList<>();
-        Group groupDresses = new Group(null, groupName, products);
-        Product product11 = new Product(null, "P1", "Pellentesque tempus interdum quam ut rhoncus.", BigDecimal.valueOf(230), groupDresses, orders);
-        Product product21 = new Product(null, "P2", "Tempus interdum quam ut rhoncus.", BigDecimal.valueOf(255), groupDresses, orders);
-        Product product31 = new Product(null, "P3", "Interdum quam ut rhoncus.", BigDecimal.valueOf(543), groupDresses, orders);
+        List<Cart> carts = new ArrayList<>();
+        Product product1 = Product.builder().id(null).name("Shoes").description("shoes")
+                .group(groupClothes).orders(orders).carts(carts).build();
+        Product product2 = Product.builder().id(null).name("Coat").description("coat")
+                .group(groupClothes).orders(orders).carts(carts).build();
+        Product product3 = Product.builder().id(null).name("pullover").description("pullover")
+                .group(groupClothes).orders(orders).carts(carts).build();
+        products.add(product1);
+        products.add(product2);
+        products.add(product3);
         List<Product> cartItems = new ArrayList<>();
-        cartItems.add(product11);
-        cartItems.add(product21);
-        cartItems.add(product31);
-        Cart cartWithProducts = new Cart(null, new BigDecimal(200.0),true, wrobel, cartItems);
+        cartItems.add(product1);
+        cartItems.add(product2);
+        cartItems.add(product3);
+        Cart cart = Cart.builder().id(null).totalPrice(new BigDecimal(0))
+                .isClosed(true).user(kowalski).cartItems(cartItems).build();
 
-        //when
-        userRepository.save(wrobel);
-        Long wrobelId = wrobel.getId();
-        groupRepository.save(groupDresses);
-        Long dresses22Id = groupDresses.getId();
-        productRepository.save(product11);
-        Long pro11Id = product11.getId();
-        productRepository.save(product21);
-        Long pro21Id = product21.getId();
-        productRepository.save(product31);
-        Long pro31Id = product31.getId();
-        cartRepository.save(cartWithProducts);
-
-
-        cartWithProducts.getCartItems().remove(product11);
-        cartWithProducts.getCartItems().remove(product21);
-        cartWithProducts.getCartItems().remove(product31);
-        cartRepository.save(cartWithProducts);
-        Long cartWithProdId = cartWithProducts.getId();
-
-        int actualCartSize = cartWithProducts.getCartItems().size();
-
-        //Then
-        Assert.assertEquals(0, actualCartSize);
-
-        //CleanUp
-        try {
-            userRepository.deleteById(wrobelId);
-            productDbService.deleteById(pro11Id);
-            productDbService.deleteById(pro21Id);
-            productDbService.deleteById(pro31Id);
-            groupRepository.deleteById(dresses22Id);
-            cartRepository.deleteById(cartWithProdId);
-        } catch (Exception e) {
-            //do nothing
-        }
-    }
-
-
-    @Test
-    public void testAddProductToCart() {
-        //Given
-        User kowalski = new User().builder().id(null).username("kowalski").status(1).userKey(111L).build();
-        String groupName = "dresses";
-        List<Product> products = new ArrayList<>();
-        Group groupDresses = new Group(null, groupName, products);
-        List<Order> orders = new ArrayList<>();
-        Product product10 = new Product(null, "P1", "Pellentesque tempus interdum quam ut rhoncus.", BigDecimal.valueOf(230), groupDresses, orders);
-        Product product20 = new Product(null, "P2", "Tempus interdum quam ut rhoncus.", BigDecimal.valueOf(255), groupDresses, orders);
-        Product product30 = new Product(null, "P3", "Interdum quam ut rhoncus.", BigDecimal.valueOf(543), groupDresses, orders);
-        products.add(product10);
-        products.add(product20);
-        products.add(product30);
-
-        List<Product> cartItems = new ArrayList<>();
-        cartItems.add(product10);
-        cartItems.add(product20);
-        cartItems.add(product30);
-        Cart cartWithProd = new Cart(null, new BigDecimal(0),true, kowalski, cartItems);
 
         //when
         userRepository.save(kowalski);
         Long kowalskiId = kowalski.getId();
-        groupRepository.save(groupDresses);
-        Long groupDressesId = groupDresses.getId();
-        productRepository.save(product10);
-        Long pro10Id = product10.getId();
-        productRepository.save(product20);
-        Long pro20Id = product20.getId();
-        productRepository.save(product30);
-        Long pro30Id = product30.getId();
-        cartRepository.save(cartWithProd);
-        Long cartWithProdId = cartWithProd.getId();
+        groupRepository.save(groupClothes);
+        Long groupClothesId = groupClothes.getId();
+        productRepository.save(product1);
+        Long pro1Id = product1.getId();
+        productRepository.save(product2);
+        Long pro2Id = product2.getId();
+        productRepository.save(product3);
+        Long pro3Id = product3.getId();
+        cartRepository.save(cart);
+        Long cartId = cart.getId();
 
         //Then
-        Assert.assertEquals(3, cartWithProd.getCartItems().size());
+        Optional<Cart> currentCart = cartRepository.findById(cartId);
+        Assert.assertTrue(currentCart.isPresent());
+        int currentCartSize = currentCart.get().getCartItems().size();
+        assertEquals(3, currentCartSize);
+        assertEquals("kowalski", currentCart.get().getUser().getUsername());
 
         //CleanUp
         try {
-            productDbService.deleteById(pro10Id);
-            productDbService.deleteById(pro20Id);
-            productDbService.deleteById(pro30Id);
-            groupRepository.deleteById(groupDressesId);
-            cartRepository.deleteById(cartWithProdId);
-            userRepository.deleteById(kowalskiId);
+            productDbService.deleteById(pro1Id);
+            productDbService.deleteById(pro2Id);
+            productDbService.deleteById(pro3Id);
+            groupRepository.deleteById(groupClothesId);
+            cartRepository.delete(cart);
+            userRepository.delete(kowalski);
         } catch (Exception e) {
             //do nothing
         }
@@ -141,52 +97,61 @@ public class CartRepositoryTestSuite {
 
 
     @Test
-    public void updateUserDataWithCart() {
+    public void testUpdateCartStatus() {
         //Given
-        User nowak =  new User().builder().id(null).username("nowak").status(0).userKey(99L).build();
+        User nowak = User.builder().id(null).username("nowak").status(0).userKey(99L).build();
         String groupName = "dresses";
         List<Product> products = new ArrayList<>();
         List<Order> orders = new ArrayList<>();
-        Group groupDresses = new Group(null, groupName, products);
-        Product product13 = new Product(null, "P1", "Pellentesque tempus interdum quam ut rhoncus.", BigDecimal.valueOf(230), groupDresses, orders);
-        Product product23 = new Product(null, "P2", "Tempus interdum quam ut rhoncus.", BigDecimal.valueOf(255), groupDresses, orders);
-        Product product33 = new Product(null, "P3", "Interdum quam ut rhoncus.", BigDecimal.valueOf(543), groupDresses, orders);
+        List<Cart> carts = new ArrayList<>();
+        Group groupClothes = new Group(null, groupName, products);
+        Product product1 = Product.builder().id(null).name("Shoes").description("shoes")
+                .group(groupClothes).orders(orders).carts(carts).build();
+        Product product2 = Product.builder().id(null).name("Coat").description("coat")
+                .group(groupClothes).orders(orders).carts(carts).build();
+        Product product3 = Product.builder().id(null).name("pullover").description("pullover")
+                .group(groupClothes).orders(orders).carts(carts).build();
+        products.add(product1);
+        products.add(product2);
+        products.add(product3);
         List<Product> cartItems = new ArrayList<>();
-        cartItems.add(product13);
-        cartItems.add(product23);
-        cartItems.add(product33);
-        Cart cartWithProducts = new Cart(null, new BigDecimal(20.0),true, nowak, cartItems);
+        cartItems.add(product1);
+        cartItems.add(product2);
+        cartItems.add(product3);
+        Cart cart = Cart.builder().id(null).totalPrice(new BigDecimal(20.0))
+                .isClosed(false).user(nowak).cartItems(cartItems).build();
 
         //when
         userRepository.save(nowak);
         Long nowakId = nowak.getId();
-        groupRepository.save(groupDresses);
-        Long dresses33Id = groupDresses.getId();
-        productRepository.save(product13);
-        Long pro13Id = product13.getId();
-        productRepository.save(product23);
-        Long pro23Id = product13.getId();
-        productRepository.save(product33);
-        Long pro33Id = product33.getId();
-        cartRepository.save(cartWithProducts);
-        Long cartWithProductsId = cartWithProducts.getId();
+        groupRepository.save(groupClothes);
+        Long dressesId = groupClothes.getId();
+        productRepository.save(product1);
+        Long pro1Id = product1.getId();
+        productRepository.save(product2);
+        Long pro2Id = product2.getId();
+        productRepository.save(product3);
+        Long pro3Id = product3.getId();
+        cartRepository.save(cart);
+        Long cartId = cart.getId();
 
-        nowak.setUserKey(125L);
-        userRepository.save(nowak);
-
-        Long checkUserKey = cartWithProducts.getUser().getUserKey();
+        cart.setClosed(true);
+        cartRepository.save(cart);
+        Optional<Cart> currentCart = cartRepository.findById(cartId);
+        Assert.assertTrue(currentCart.isPresent());
+        boolean isReadyToOrder = currentCart.get().isClosed();
 
         //Then
-        Assert.assertEquals(125L, checkUserKey.longValue());
+        Assert.assertTrue(isReadyToOrder);
 
         //CleanUp
         try {
             userRepository.deleteById(nowakId);
-            productDbService.deleteById(pro13Id);
-            productDbService.deleteById(pro23Id);
-            productDbService.deleteById(pro33Id);
-            groupRepository.deleteById(dresses33Id);
-            cartRepository.deleteById(cartWithProductsId);
+            productDbService.deleteById(pro1Id);
+            productDbService.deleteById(pro2Id);
+            productDbService.deleteById(pro3Id);
+            groupRepository.deleteById(dressesId);
+            cartRepository.deleteById(cartId);
         } catch (Exception e) {
             //do nothing
         }
