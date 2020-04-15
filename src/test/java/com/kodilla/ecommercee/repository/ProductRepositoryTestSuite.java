@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.repository;
 
+import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.Product;
@@ -42,10 +43,11 @@ public class ProductRepositoryTestSuite {
     private void createData() {
         List<Product> productList = new ArrayList<>();
         List<Order> orders = new ArrayList<>();
+        List<Cart> carts = new ArrayList<>();
         clothes = new Group(null, "clothes", productList);
-        trousers = new Product(null, "Trousers", "Denim", new BigDecimal("31"), clothes, orders);
-        boots = new Product(null, "Boots", "Leather", new BigDecimal("43.2"), clothes, orders);
-        shirt = new Product(null, "shirt", "White", new BigDecimal("43.2"), clothes, orders);
+        trousers = new Product(null, "Trousers", "Denim", new BigDecimal("31"), clothes,orders,carts);
+        boots = new Product(null, "Boots", "Leather", new BigDecimal("43.2"), clothes, orders,carts);
+        shirt = new Product(null, "shirt", "White", new BigDecimal("43.2"), clothes, orders,carts);
         productList.add(trousers);
         productList.add(boots);
         productList.add(shirt);
