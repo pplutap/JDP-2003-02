@@ -7,6 +7,9 @@ import com.kodilla.ecommercee.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class GroupDbService {
     @Autowired
@@ -24,5 +27,17 @@ public class GroupDbService {
             }
         }
         groupRepository.deleteById(id);
+    }
+
+    public List<Group> getGroups() {
+        return groupRepository.findAll();
+    }
+
+    public void saveGroup(Group group) {
+        groupRepository.save(group);
+    }
+
+    public Optional<Group> getGroup(Long id) {
+        return groupRepository.findById(id);
     }
 }
