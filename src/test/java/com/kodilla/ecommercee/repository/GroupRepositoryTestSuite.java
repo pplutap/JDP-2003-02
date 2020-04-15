@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.repository;
 
+import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.Product;
@@ -35,9 +36,10 @@ public class GroupRepositoryTestSuite {
         List<Product> products = new ArrayList<>();
         Group dresses = new Group(null, name, products);
         List<Order> orders = new ArrayList<>();
-        Product product1 = new Product(null, "P1", "Pellentesque tempus interdum quam ut rhoncus.", BigDecimal.valueOf(230), dresses, orders);
-        Product product2 = new Product(null, "P2", "Tempus interdum quam ut rhoncus.", BigDecimal.valueOf(255), dresses, orders);
-        Product product3 = new Product(null, "P3", "Interdum quam ut rhoncus.", BigDecimal.valueOf(543), dresses, orders);
+        List<Cart> carts = new ArrayList<>();
+        Product product1 = new Product(null, "P1", "Pellentesque tempus interdum quam ut rhoncus.", BigDecimal.valueOf(230), dresses, orders,carts);
+        Product product2 = new Product(null, "P2", "Tempus interdum quam ut rhoncus.", BigDecimal.valueOf(255), dresses, orders,carts);
+        Product product3 = new Product(null, "P3", "Interdum quam ut rhoncus.", BigDecimal.valueOf(543), dresses, orders,carts);
         products.add(product1);
         products.add(product2);
         products.add(product3);
