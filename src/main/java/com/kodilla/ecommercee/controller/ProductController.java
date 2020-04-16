@@ -25,7 +25,7 @@ public class ProductController {
                 .name("Kurtka zimowa")
                 .description("Pellentesque tempus interdum quam ut rhoncus. Donec ullamcorper turpis dolor")
                 .price(new BigDecimal(100))
-                .groupId("1")
+                .groupId(1L)
                 .build();
     }
 
@@ -40,7 +40,7 @@ public class ProductController {
                 .name("Kurtka zimowa")
                 .description("Pellentesque tempus interdum quam ut rhoncus. Donec ullamcorper turpis dolor")
                 .price(new BigDecimal(100))
-                .groupId("1")
+                .groupId(1L)
                 .build();
     }
 
@@ -55,7 +55,7 @@ public class ProductController {
                 .name("Kurtka zimowa")
                 .description("Pellentesque tempus interdum quam ut rhoncus. Donec ullamcorper turpis dolor")
                 .price(new BigDecimal(100))
-                .groupId("1")
+                .groupId(1L)
                 .build();
 
         ProductDto productDto2 = ProductDto.builder()
@@ -63,7 +63,7 @@ public class ProductController {
                 .name("płaszcz")
                 .description("Pellentesque tempus interdum quam ut rhoncus. Donec ullamcorper turpis dolor")
                 .price(new BigDecimal(150))
-                .groupId("1")
+                .groupId(1L)
                 .build();
 
         ProductDto productDto3 = ProductDto.builder()
@@ -71,7 +71,7 @@ public class ProductController {
                 .name("buty")
                 .description("Pellentesque tempus interdum quam ut rhoncus. Donec ullamcorper turpis dolor")
                 .price(new BigDecimal(120))
-                .groupId("4")
+                .groupId(4L)
                 .build();
 
         productsList.add(productDto1);
