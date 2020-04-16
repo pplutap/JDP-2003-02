@@ -44,4 +44,10 @@ public class ProductMapper {
                 .map(p -> new ProductDto(p.getId(), p.getName(), p.getDescription(), p.getPrice(), p.getGroup().getId()))
                 .collect(Collectors.toList());
     }
+
+    public List<Product> mapToProductList(List<ProductDto> productList) {
+        return productList.stream()
+                .map(p -> Product.builder().id(p.getId()).name(p.getName()).description(p.getDescription()).price(p.getPrice()).group(groupDbService.getGroup(p.getGroupId()).get()).build())
+                .collect(Collectors.toList());
+    }
 }
