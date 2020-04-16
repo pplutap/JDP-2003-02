@@ -11,59 +11,37 @@ import java.util.stream.Collectors;
 
 @Component
 public class ProductMapper {
-    OrderMapper orderMapper;
-    CartMapper cartMapper;
     GroupDbService groupDbService;
 
 
     @Autowired
-    public ProductMapper(OrderMapper orderMapper, CartMapper cartMapper, GroupDbService groupDbService) {
-        this.orderMapper = orderMapper;
-        this.cartMapper = cartMapper;
+    public ProductMapper(GroupDbService groupDbService) {
         this.groupDbService = groupDbService;
     }
 
     public Product mapToProduct(final ProductDto productDto) {
-        return new Product(productDto.getId(),
-                productDto.getName(),
-                productDto.getDescription(),
-                productDto.getPrice(),
-                groupDbService.getGroup(productDto.getGroupId()).get(),
-                orderMapper.mapToOrderList(productDto.getOrders()),
-                cartMapper.mapToCartList(productDto.getCarts()));
+        return Product.builder()
+                .id(productDto.getId())
+                .name(productDto.getName())
+                .description(productDto.getDescription())
+                .price(productDto.getPrice())
+                .group(groupDbService.getGroup(productDto.getGroupId()).get())
+                .build();
     }
 
     public ProductDto mapToProductDto(final Product product) {
-        return new ProductDto(product.getId(),
-                product.getName(),
-                product.getDescription(),
-                product.getPrice(),
-                product.getGroup().getId(),
-                orderMapper.mapToOrderDtoList(product.getOrders()),
-                cartMapper.mapToCartDtoList(product.getCarts()));
+        return ProductDto.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .description(product.getDescription())
+                .price(product.getPrice())
+                .groupId(product.getGroup().getId())
+                .build();
     }
 
     public List<ProductDto> mapToProductDtoList(List<Product> productList) {
         return productList.stream()
-                .map(p -> new ProductDto(p.getId(),
-                        p.getName(),
-                        p.getDescription(),
-                        p.getPrice(),
-                        p.getGroup().getId(),
-                        orderMapper.mapToOrderDtoList(p.getOrders()),
-                        cartMapper.mapToCartDtoList(p.getCarts())))
-                .collect(Collectors.toList());
-    }
-
-    public List<Product> mapToProductList(List<ProductDto> productList) {
-        return productList.stream()
-                .map(p -> new Product(p.getId(),
-                        p.getName(),
-                        p.getDescription(),
-                        p.getPrice(),
-                        groupDbService.getGroup(p.getGroupId()).get(),
-                        orderMapper.mapToOrderList(p.getOrders()),
-                        cartMapper.mapToCartList(p.getCarts())))
+                .map(p -> new ProductDto(p.getId(), p.getName(), p.getDescription(), p.getPrice(), p.getGroup().getId()))
                 .collect(Collectors.toList());
     }
 }

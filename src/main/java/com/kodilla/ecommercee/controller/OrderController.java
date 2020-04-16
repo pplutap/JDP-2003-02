@@ -39,8 +39,8 @@ public class OrderController {
     }
 
     @PutMapping
-    public OrderDto update(@RequestBody OrderDto orderDto) {
-        return orderMapper.mapToOrderDto(orderDbService.saveOrder(orderMapper.mapToOrder(orderDto)));
+    public void update(@RequestBody OrderDto orderDto) {
+        orderDbService.saveOrder(orderMapper.mapToOrder(orderDto));
     }
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
